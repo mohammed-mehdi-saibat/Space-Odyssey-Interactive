@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Events & News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0e17;
+            color: #e0e0e0;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 114, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(28, 58, 114, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #8a9bb8;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-card {
+            background: rgba(16, 24, 39, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date {
+            color: #00f2fe;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .source {
+            color: #8a9bb8;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        
+        .card-description {
+            color: #b0b8c9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-footer {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #00f2fe;
+        }
+        
+        .read-more::after {
+            content: "→";
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more:hover::after {
+            transform: translateX(3px);
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(79, 172, 254, 0.5), transparent);
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upcoming Events</h1>
+            <p class="subtitle">Latest discoveries and milestones in space exploration</p>
+        </header>
+        
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="card-header">
+                    <span class="date">October 2, 2025</span>
+                    <span class="source">Spaces</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">SpaceX Successfully Lands Starship on Mars Simulation</h2>
+                    <p class="card-description">Scientists using data from multiple space telescopes have uncovered new details about how supermassive black holes formed in the early universe, challenging previous theories.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="read-more">Read More</a>
+                    <span class="source">RIGHT AT STEPS</span>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="card-header">
+                    <span class="date">October 12, 2025</span>
+                    <span class="source">Hubble</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Hubble Spots Spiral Galaxy 65 Million Light Years Away</h2>
+                    <p class="card-description">The Hubble Space Telescope has captured stunning images of NGC 1300, a barred spiral galaxy with intricate dust lanes and star-forming regions visible in unprecedented detail.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="read-more">View Images</a>
+                    <span class="source">RIGHT AT STEPS</span>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="card-header">
+                    <span class="date">Recent Event</span>
+                    <span class="source">Solar Activity</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Massive Solar Flare Causes Aurora Visible Worldwide</h2>
+                    <p class="card-description">An X-class solar flare sparked geomagnetic storms, lighting up auroras as far south as Mexico and North Africa, with stunning photos flooding social media.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="read-more">See Photos</a>
+                    <span class="source">RIGHT AT STEPS</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div style="text-align: center; color: #8a9bb8; margin-top: 2rem;">
+            <p>Stay updated with the latest space discoveries and events</p>
+        </div>
+    </div>
+
+    <script>
+        // Add subtle animation to cards on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.event-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
