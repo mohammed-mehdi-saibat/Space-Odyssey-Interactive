@@ -12,6 +12,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <title>Space Odyssey</title>
   </head>
   <body>
@@ -62,7 +67,24 @@
     </div>
     <!-- NAV -->
     <!-- MISSIONS -->
-    <div class="missions-section1">
+    <div class="missions-hero">
+      <div class="missions-hero-content">
+        <h1>“Exploring Beyond the Horizon”</h1>
+        <p>
+          Join humanity’s journey through the cosmos — from the first steps on
+          the Moon to the farthest reaches of the galaxy.
+        </p>
+      </div>
+    </div>
+    <div class="search-section">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search missions by name, agency or objective..."
+      />
+    </div>
+    <div id="missions-container" class="missions-section1"></div>
+    <!-- <div class="missions-section1">
       <div class="our-missions">
         <img src="images/circle.png" alt="" />
         <span>Our Missions</span>
@@ -74,8 +96,8 @@
         seeking to uncover the mysteries of planets, moons, and distant
         celestial objects.
       </p>
-    </div>
-    <div class="missions-section2 missions-section1">
+    </div> -->
+    <!-- <div class="missions-section2 missions-section1">
       <h1>ISS</h1>
       <div class="missions-line"></div>
       <p>
@@ -199,7 +221,7 @@
         scientists learn not only about Jupiter but also about the origins of
         planetary systems, including our own.
       </p>
-    </div>
+    </div> -->
     <!-- MISSIONS -->
     <!-- FOOTER -->
     <div class="footer">
@@ -260,5 +282,6 @@
       </div>
     </div>
     <!-- FOOTER -->
+    <script src="script.js"></script>
   </body>
 </html>

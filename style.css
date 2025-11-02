@@ -7,6 +7,7 @@
   font-family: "Inter", sans-serif;
   text-decoration: none;
   list-style: none;
+  scroll-behavior: smooth;
 }
 
 /* START HEADER */
@@ -96,7 +97,7 @@
   list-style: none;
   align-items: center;
   gap: 25px;
-  padding-right: 10px;
+  padding-right: 70px;
 }
 
 .nav .links ul a {
@@ -178,7 +179,7 @@
   align-items: center;
   gap: 40px;
   padding: 50px;
-  background: url("images/home-background2.png") center/cover;
+  /* background: url("images/home-background2.png") center/cover; */
   margin-top: -16px;
 }
 
@@ -199,6 +200,7 @@
   max-width: 500px;
   flex: 1;
   border-radius: 5px;
+  box-shadow: 10px 10px 40px #e9d6d6;
 }
 
 .section2 .home-cards .card1 {
@@ -248,15 +250,15 @@
 .section2 .time-in-space {
   display: flex;
   justify-content: space-between;
-  width: 1300px;
+  width: fit-content;
 }
 
 .section2 .time-in-space .text p {
   width: 800px;
   font-size: 18px;
   line-height: 2;
-  color: white;
   font-weight: 400;
+  color: black;
 }
 
 .section2 .time-in-space .timer-card {
@@ -271,6 +273,7 @@
   border-radius: 5px;
   gap: 10px;
   padding: 45px 20px;
+  box-shadow: 10px 10px 40px #e9d6d6;
 }
 
 .section2 .time-in-space .timer-card .total-time {
@@ -323,6 +326,7 @@
   height: 400px;
   display: flex;
   border-radius: 5px;
+  box-shadow: 10px 10px 40px #e9d6d6;
 }
 
 .section3-left-side {
@@ -378,7 +382,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("images/home-background4.png") center/cover;
+  /* background: url("images/home-background4.png") center/cover; */
+  background-color: black;
 }
 
 .section4-container {
@@ -956,17 +961,169 @@
 /* END PLANETS */
 /* ---------------------------------------------------------- */
 /* START MISSIONS */
+.missions-hero {
+  background: url(images/missions-hero-background.jpg) center/cover;
+  height: 70vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+.missions-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.missions-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.missions-hero-content h1 {
+  font-size: 56px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.missions-hero-content p {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* ---------Missions Sections---------- */
 .missions-section1 {
+  background-color: #f8f8f8;
+  color: #111;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.missions-section1 h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.missions-section1 p {
+  font-size: 18px;
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.missions-section1 img {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+#missions-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mission-card {
+  padding: 40px;
+  width: 350px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 50px #f0d9d9;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.mission-card:hover {
+  transform: translateY(-10px);
+}
+
+.mission-card i {
+  font-size: 25px;
+  color: transparent;
+  -webkit-text-stroke: 1px black;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mission-card i:hover {
+  transform: rotate(360deg);
+}
+
+.search-section {
+  text-align: center;
+  padding: 40px 30px;
+  background-color: #0b0d17;
+}
+
+#search-input {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: #111;
+  color: #fff;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+#search-input:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 2px white;
+}
+
+/* .missions-section1 .missions-line {
+} */
+/* .missions-hero .missions-hero-content {
+  margin-top: 200px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.missions-hero .missions-hero-content h1 {
+  font-size: 60px;
+}
+
+.missions-hero .missions-hero-content p {
+  font-size: 17px;
+  width: 600px;
+} */
+
+/* .missions-section1 {
   position: relative;
   background: url(images/missions-background1.jpg) center/cover;
   color: white;
-  height: 50vh;
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
   padding-left: 100px;
-}
+} 
 
 .missions-section1 .our-missions {
   position: absolute;
@@ -989,6 +1146,7 @@
 
 .missions-section1 h1 {
   font-size: 49px;
+  color: #f7df1e;
 }
 
 .missions-section1 .missions-line {
@@ -1000,11 +1158,14 @@
 .missions-section1 p {
   font-size: 20px;
   width: 1000px;
-  font-weight: 200;
+  font-weight: 400;
+  color: white;
+  background-color: #182752;
+  padding: 20px;
 }
 
 .missions-section2 {
-  height: 70vh;
+  height: 100vh;
   background: url(images/missions-background2.jpg) center/cover;
 }
 
@@ -1013,7 +1174,7 @@
 }
 
 .missions-section3 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background3.jpg) center/cover;
 }
 
@@ -1022,7 +1183,7 @@
 }
 
 .missions-section4 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/home-background4-card.jpg) center/cover;
 }
 
@@ -1031,7 +1192,7 @@
 }
 
 .missions-section5 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background5.jpg) center/cover;
 }
 
@@ -1040,7 +1201,7 @@
 }
 
 .missions-section6 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background6.jpg) center/cover;
 }
 
@@ -1049,7 +1210,7 @@
 }
 
 .missions-section7 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background7.jpg) center/cover;
 }
 
@@ -1058,7 +1219,7 @@
 }
 
 .missions-section8 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background9.jpg) center/cover;
 }
 
@@ -1067,7 +1228,7 @@
 }
 
 .missions-section9 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background10.jpg) center/cover;
 }
 
@@ -1076,13 +1237,14 @@
 }
 
 .missions-section10 {
-  height: 80vh;
+  height: 100vh;
   background: url(images/missions-background11.jpg) center/cover;
 }
 
 .missions-section10 p {
   width: 600px;
-}
+} 
+  */
 /* END MISSIONS */
 /* ---------------------------------------------------------- */
 /* START CONTACT */
