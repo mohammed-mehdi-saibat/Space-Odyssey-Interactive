@@ -26,10 +26,10 @@
         <img src="images/LOGO.png" alt="" />
       </div>
       <div class="header-content">
-        <div class="form">
+        <!-- <div class="form">
           <input type="text" placeholder="Search" />
           <img src="images/scope.png" alt="" />
-        </div>
+        </div> -->
         <div class="language">
           <select name="" id="">
             <option value="English">English</option>
@@ -37,6 +37,11 @@
             <option value="Arabic">Arabic</option>
           </select>
         </div>
+
+        <button id="toggle-favorites" class="favorites-btn">
+          <i class="fa-solid fa-star"></i>
+        </button>
+
         <img src="images/notifications.png" alt="" />
         <img src="images/Avatar.png" alt="" />
       </div>
@@ -97,7 +102,6 @@
           <option value="">Year</option>
         </select>
       </div>
-      <button id="toggle-favorites">Favorites</button>
 
       <form id="mission-form" style="display: none; margin: 18px 0">
         <input type="hidden" id="mission-id" />
@@ -325,6 +329,15 @@
       </div>
     </div>
     <!-- FOOTER -->
+    <!-- -------FAVORITES POPUP---------- -->
+    <div id="favorites-popup" class="popup">
+      <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <h2>Favorites</h2>
+        <div id="favorites-container" class="favorites-container"></div>
+      </div>
+    </div>
+    <!-- -------FAVORITES POPUP---------- -->
     <script src="script.js"></script>
   </body>
 </html>
