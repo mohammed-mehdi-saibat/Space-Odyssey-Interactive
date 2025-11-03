@@ -14,8 +14,6 @@ fetch("missionsdata.json")
     const filterObjective = document.getElementById("filter-objective");
     const filterYear = document.getElementById("filter-year");
 
-    const toggleFavoritesBtn = document.getElementById("toggle-favorites");
-    let showingFavorites = false;
     let favoriteMissions = [];
 
     const addMissionBtn = document.getElementById("add-mission-btn");
@@ -29,6 +27,20 @@ fetch("missionsdata.json")
     const missionDateInput = document.getElementById("mission-date");
     const missionImageInput = document.getElementById("mission-image");
 
+    const headerFavBtn = document.getElementById("toggle-favorites");
+    const favoritesPopup = document.getElementById("favorites-popup");
+    const closePopupBtn = favoritesPopup.querySelector(".close-btn");
+    const favoritesContainer = document.getElementById("favorites-container");
+
+    // ---------------- Helper to toggle favorites ----------------
+    function toggleFavorite(missionId) {
+      if (favoriteMissions.includes(missionId)) {
+        favoriteMissions = favoriteMissions.filter((id) => id !== missionId);
+      } else {
+        favoriteMissions.push(missionId);
+      }
+    }
+
     // -----------DISPLAY CARDS--------------
     function renderMissions(list) {
       missionsContainer.innerHTML = "";
@@ -40,32 +52,25 @@ fetch("missionsdata.json")
         const isFavorite = favoriteMissions.includes(mission.id);
 
         card.innerHTML = `
-        <img src="${mission.image}" alt="${mission.name}">
-        <h2>${mission.name}</h2>
-        <p>Agency: ${mission.agency}</p>
-        <p>Objective: ${mission.objective}</p>
-        <p>Launch Date: ${mission.launchDate}</p>
-        <i class="fa-solid fa-star ${isFavorite ? "favorite" : ""}"></i>
-        <div class="mission-actions">
-          <button class="edit-btn">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </div>
+          <img src="${mission.image}" alt="${mission.name}">
+          <h2>${mission.name}</h2>
+          <p>Agency: ${mission.agency}</p>
+          <p>Objective: ${mission.objective}</p>
+          <p>Launch Date: ${mission.launchDate}</p>
+          <i class="fa-solid fa-star ${isFavorite ? "favorite" : ""}"></i>
+          <div class="mission-actions">
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          </div>
         `;
 
         missionsContainer.appendChild(card);
 
-        // -----------ADD CLICK EVENT TO THE STAR------------
+        // -----------STAR (FAVORITE) BUTTON------------
         const star = card.querySelector("i.fa-star");
         star.addEventListener("click", () => {
-          if (favoriteMissions.includes(mission.id)) {
-            favoriteMissions = favoriteMissions.filter(
-              (id) => id !== mission.id
-            );
-            star.classList.remove("favorite");
-          } else {
-            favoriteMissions.push(mission.id);
-            star.classList.add("favorite");
-          }
+          toggleFavorite(mission.id);
+          renderMissions(missions);
         });
 
         // -----------EDIT BUTTON------------
@@ -83,12 +88,17 @@ fetch("missionsdata.json")
         // -----------DELETE BUTTON------------
         const deleteBtn = card.querySelector(".delete-btn");
         deleteBtn.addEventListener("click", () => {
-          missions = missions.filter((m) => m.id !== mission.id);
-          renderMissions(
-            showingFavorites
-              ? missions.filter((m) => favoriteMissions.includes(m.id))
-              : missions
+          const confirmDelete = confirm(
+            `Are you sure you want to delete ${mission.name}?`
           );
+          if (confirmDelete) {
+            missions = missions.filter((m) => m.id !== mission.id);
+            // ------Also remove from favorites if it was there------
+            favoriteMissions = favoriteMissions.filter(
+              (id) => id !== mission.id
+            );
+            renderMissions(missions);
+          }
         });
       });
     }
@@ -98,20 +108,11 @@ fetch("missionsdata.json")
     searchInput.addEventListener("input", (e) => {
       const raw = e.target.value.trim().toLowerCase();
 
-      if (!raw) {
-        renderMissions(
-          showingFavorites
-            ? missions.filter((m) => favoriteMissions.includes(m.id))
-            : missions
-        );
-        return;
-      }
-
       const filtered = missions.filter((m) => {
         const name = String(m.name || "").toLowerCase();
         const agency = String(m.agency || "").toLowerCase();
         const objective = String(m.objective || "").toLowerCase();
-        const date = String(m.launchDate || "").toLowerCase();
+        const date = String(m.launchDate || "");
 
         return (
           name.includes(raw) ||
@@ -162,7 +163,6 @@ fetch("missionsdata.json")
 
       const filtered = missions.filter((m) => {
         const year = new Date(m.launchDate).getFullYear().toString();
-
         return (
           (!nameValue || m.name === nameValue) &&
           (!agencyValue || m.agency === agencyValue) &&
@@ -171,34 +171,14 @@ fetch("missionsdata.json")
         );
       });
 
-      renderMissions(
-        showingFavorites
-          ? filtered.filter((m) => favoriteMissions.includes(m.id))
-          : filtered
-      );
+      renderMissions(filtered);
     }
 
-    // ------------------------EVENT LISTENERS FOR DROPDOWNS---------------
+    // ----------------EVENT LISTENERS FOR DROPDOWNS---------------
     filterName.addEventListener("change", applyFilters);
     filterAgency.addEventListener("change", applyFilters);
     filterObjective.addEventListener("change", applyFilters);
     filterYear.addEventListener("change", applyFilters);
-
-    // ---------TOGGLE FAVORITES BUTTON------------
-    toggleFavoritesBtn.addEventListener("click", () => {
-      if (!showingFavorites) {
-        const favoritesList = missions.filter((m) =>
-          favoriteMissions.includes(m.id)
-        );
-        renderMissions(favoritesList);
-        toggleFavoritesBtn.textContent = "Show all missions";
-        showingFavorites = true;
-      } else {
-        renderMissions(missions);
-        toggleFavoritesBtn.textContent = "Show favorites";
-        showingFavorites = false;
-      }
-    });
 
     // ---------ADD MISSION BUTTON------------
     addMissionBtn.addEventListener("click", () => {
@@ -219,7 +199,7 @@ fetch("missionsdata.json")
 
       const id = missionIdInput.value;
       const newMission = {
-        id: id ? parseInt(id) : Date.now(),
+        id: id ? parseInt(id, 10) : Date.now(),
         name: missionNameInput.value,
         agency: missionAgencyInput.value,
         objective: missionObjectiveInput.value,
@@ -233,14 +213,58 @@ fetch("missionsdata.json")
         missions.push(newMission);
       }
 
-      renderMissions(
-        showingFavorites
-          ? missions.filter((m) => favoriteMissions.includes(m.id))
-          : missions
-      );
-
+      renderMissions(missions);
       missionForm.style.display = "none";
       missionForm.reset();
+    });
+
+    // ------ FAVORITES POPUP LOGIC ------
+    function renderFavoritesPopup() {
+      favoritesContainer.innerHTML = "";
+
+      if (favoriteMissions.length === 0) {
+        favoritesContainer.innerHTML = "<p>No favorite missions yet!</p>";
+      } else {
+        favoriteMissions.forEach((favId) => {
+          const mission = missions.find((m) => m.id === favId);
+          if (!mission) return;
+
+          const card = document.createElement("div");
+          card.classList.add("mission-card");
+
+          const isFavorite = favoriteMissions.includes(mission.id);
+
+          card.innerHTML = `
+            <img src="${mission.image}" alt="${mission.name}">
+            <h2>${mission.name}</h2>
+            <p>Agency: ${mission.agency}</p>
+            <p>Objective: ${mission.objective}</p>
+            <p>Launch Date: ${mission.launchDate}</p>
+            <i class="fa-solid fa-star ${isFavorite ? "favorite" : ""}"></i>
+          `;
+
+          favoritesContainer.appendChild(card);
+
+          const star = card.querySelector("i.fa-star");
+          star.addEventListener("click", () => {
+            toggleFavorite(mission.id);
+            renderMissions(missions);
+            renderFavoritesPopup(); // refresh popup
+          });
+        });
+      }
+
+      favoritesPopup.style.display = "flex";
+    }
+
+    headerFavBtn.addEventListener("click", renderFavoritesPopup);
+
+    closePopupBtn.addEventListener("click", () => {
+      favoritesPopup.style.display = "none";
+    });
+
+    favoritesPopup.addEventListener("click", (e) => {
+      if (e.target === favoritesPopup) favoritesPopup.style.display = "none";
     });
   })
   .catch((error) => console.error("Error fetching missions:", error));
