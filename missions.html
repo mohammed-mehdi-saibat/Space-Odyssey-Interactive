@@ -82,6 +82,49 @@
         id="search-input"
         placeholder="Search missions by name, agency or objective..."
       />
+
+      <div class="filters">
+        <select id="filter-name">
+          <option value="">Name</option>
+        </select>
+        <select id="filter-agency">
+          <option value="">Agency</option>
+        </select>
+        <select id="filter-objective">
+          <option value="">Objective</option>
+        </select>
+        <select id="filter-year">
+          <option value="">Year</option>
+        </select>
+      </div>
+      <button id="toggle-favorites">Favorites</button>
+
+      <form id="mission-form" style="display: none; margin: 18px 0">
+        <input type="hidden" id="mission-id" />
+        <input
+          type="text"
+          id="mission-name"
+          placeholder="Mission name"
+          required
+        />
+        <input type="text" id="mission-agency" placeholder="Agency" required />
+        <input
+          type="text"
+          id="mission-objective"
+          placeholder="Objective"
+          required
+        />
+        <input type="date" id="mission-date" required />
+        <input
+          type="text"
+          id="mission-image"
+          placeholder="Image URL (optional)"
+        />
+        <button type="submit" id="save-mission-btn">Save</button>
+        <button type="button" id="cancel-mission-btn">Cancel</button>
+      </form>
+
+      <button id="add-mission-btn" type="button">Add Mission</button>
     </div>
     <div id="missions-container" class="missions-section1"></div>
     <!-- <div class="missions-section1">
