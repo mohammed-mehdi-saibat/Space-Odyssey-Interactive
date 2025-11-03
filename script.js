@@ -1,0 +1,246 @@
+"use strict";
+
+// --------------Fetch missions data------------
+fetch("missionsdata.json")
+  .then((response) => response.json())
+  .then((data) => {
+    let missions = data;
+
+    const missionsContainer = document.getElementById("missions-container");
+    const searchInput = document.getElementById("search-input");
+
+    const filterName = document.getElementById("filter-name");
+    const filterAgency = document.getElementById("filter-agency");
+    const filterObjective = document.getElementById("filter-objective");
+    const filterYear = document.getElementById("filter-year");
+
+    const toggleFavoritesBtn = document.getElementById("toggle-favorites");
+    let showingFavorites = false;
+    let favoriteMissions = [];
+
+    const addMissionBtn = document.getElementById("add-mission-btn");
+    const missionForm = document.getElementById("mission-form");
+    const cancelMissionBtn = document.getElementById("cancel-mission-btn");
+    const saveMissionBtn = document.getElementById("save-mission-btn");
+    const missionIdInput = document.getElementById("mission-id");
+    const missionNameInput = document.getElementById("mission-name");
+    const missionAgencyInput = document.getElementById("mission-agency");
+    const missionObjectiveInput = document.getElementById("mission-objective");
+    const missionDateInput = document.getElementById("mission-date");
+    const missionImageInput = document.getElementById("mission-image");
+
+    // -----------DISPLAY CARDS--------------
+    function renderMissions(list) {
+      missionsContainer.innerHTML = "";
+
+      list.forEach((mission) => {
+        const card = document.createElement("div");
+        card.classList.add("mission-card");
+
+        const isFavorite = favoriteMissions.includes(mission.id);
+
+        card.innerHTML = `
+        <img src="${mission.image}" alt="${mission.name}">
+        <h2>${mission.name}</h2>
+        <p>Agency: ${mission.agency}</p>
+        <p>Objective: ${mission.objective}</p>
+        <p>Launch Date: ${mission.launchDate}</p>
+        <i class="fa-solid fa-star ${isFavorite ? "favorite" : ""}"></i>
+        <div class="mission-actions">
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+        `;
+
+        missionsContainer.appendChild(card);
+
+        // -----------ADD CLICK EVENT TO THE STAR------------
+        const star = card.querySelector("i.fa-star");
+        star.addEventListener("click", () => {
+          if (favoriteMissions.includes(mission.id)) {
+            favoriteMissions = favoriteMissions.filter(
+              (id) => id !== mission.id
+            );
+            star.classList.remove("favorite");
+          } else {
+            favoriteMissions.push(mission.id);
+            star.classList.add("favorite");
+          }
+        });
+
+        // -----------EDIT BUTTON------------
+        const editBtn = card.querySelector(".edit-btn");
+        editBtn.addEventListener("click", () => {
+          missionForm.style.display = "block";
+          missionIdInput.value = mission.id;
+          missionNameInput.value = mission.name;
+          missionAgencyInput.value = mission.agency;
+          missionObjectiveInput.value = mission.objective;
+          missionDateInput.value = mission.launchDate;
+          missionImageInput.value = mission.image;
+        });
+
+        // -----------DELETE BUTTON------------
+        const deleteBtn = card.querySelector(".delete-btn");
+        deleteBtn.addEventListener("click", () => {
+          missions = missions.filter((m) => m.id !== mission.id);
+          renderMissions(
+            showingFavorites
+              ? missions.filter((m) => favoriteMissions.includes(m.id))
+              : missions
+          );
+        });
+      });
+    }
+    renderMissions(missions);
+
+    // ----------SEARCH BAR------------
+    searchInput.addEventListener("input", (e) => {
+      const raw = e.target.value.trim().toLowerCase();
+
+      if (!raw) {
+        renderMissions(
+          showingFavorites
+            ? missions.filter((m) => favoriteMissions.includes(m.id))
+            : missions
+        );
+        return;
+      }
+
+      const filtered = missions.filter((m) => {
+        const name = String(m.name || "").toLowerCase();
+        const agency = String(m.agency || "").toLowerCase();
+        const objective = String(m.objective || "").toLowerCase();
+        const date = String(m.launchDate || "").toLowerCase();
+
+        return (
+          name.includes(raw) ||
+          agency.includes(raw) ||
+          objective.includes(raw) ||
+          date.includes(raw)
+        );
+      });
+
+      renderMissions(filtered);
+    });
+
+    // ----------POPULATE DROPDOWNS------------
+    function populateDropDown(select, values) {
+      const uniqueValues = [...new Set(values)];
+      uniqueValues.sort();
+      uniqueValues.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    }
+
+    populateDropDown(
+      filterName,
+      missions.map((m) => m.name)
+    );
+    populateDropDown(
+      filterAgency,
+      missions.map((m) => m.agency)
+    );
+    populateDropDown(
+      filterObjective,
+      missions.map((m) => m.objective)
+    );
+    populateDropDown(
+      filterYear,
+      missions.map((m) => new Date(m.launchDate).getFullYear())
+    );
+
+    // -------------DROPDOWN FILTER APPLY--------------
+    function applyFilters() {
+      const nameValue = filterName.value;
+      const agencyValue = filterAgency.value;
+      const objectiveValue = filterObjective.value;
+      const yearValue = filterYear.value;
+
+      const filtered = missions.filter((m) => {
+        const year = new Date(m.launchDate).getFullYear().toString();
+
+        return (
+          (!nameValue || m.name === nameValue) &&
+          (!agencyValue || m.agency === agencyValue) &&
+          (!objectiveValue || m.objective === objectiveValue) &&
+          (!yearValue || year === yearValue)
+        );
+      });
+
+      renderMissions(
+        showingFavorites
+          ? filtered.filter((m) => favoriteMissions.includes(m.id))
+          : filtered
+      );
+    }
+
+    // ------------------------EVENT LISTENERS FOR DROPDOWNS---------------
+    filterName.addEventListener("change", applyFilters);
+    filterAgency.addEventListener("change", applyFilters);
+    filterObjective.addEventListener("change", applyFilters);
+    filterYear.addEventListener("change", applyFilters);
+
+    // ---------TOGGLE FAVORITES BUTTON------------
+    toggleFavoritesBtn.addEventListener("click", () => {
+      if (!showingFavorites) {
+        const favoritesList = missions.filter((m) =>
+          favoriteMissions.includes(m.id)
+        );
+        renderMissions(favoritesList);
+        toggleFavoritesBtn.textContent = "Show all missions";
+        showingFavorites = true;
+      } else {
+        renderMissions(missions);
+        toggleFavoritesBtn.textContent = "Show favorites";
+        showingFavorites = false;
+      }
+    });
+
+    // ---------ADD MISSION BUTTON------------
+    addMissionBtn.addEventListener("click", () => {
+      missionForm.style.display = "block";
+      missionForm.reset();
+      missionIdInput.value = "";
+    });
+
+    // ---------CANCEL MISSION BUTTON------------
+    cancelMissionBtn.addEventListener("click", () => {
+      missionForm.style.display = "none";
+      missionForm.reset();
+    });
+
+    // ---------SAVE (CREATE / UPDATE) MISSION------------
+    missionForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const id = missionIdInput.value;
+      const newMission = {
+        id: id ? parseInt(id) : Date.now(),
+        name: missionNameInput.value,
+        agency: missionAgencyInput.value,
+        objective: missionObjectiveInput.value,
+        launchDate: missionDateInput.value,
+        image: missionImageInput.value || "images/default.jpg",
+      };
+
+      if (id) {
+        missions = missions.map((m) => (m.id == id ? newMission : m));
+      } else {
+        missions.push(newMission);
+      }
+
+      renderMissions(
+        showingFavorites
+          ? missions.filter((m) => favoriteMissions.includes(m.id))
+          : missions
+      );
+
+      missionForm.style.display = "none";
+      missionForm.reset();
+    });
+  })
+  .catch((error) => console.error("Error fetching missions:", error));
