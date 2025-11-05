@@ -268,3 +268,52 @@ fetch("missionsdata.json")
     });
   })
   .catch((error) => console.error("Error fetching missions:", error));
+
+// ------------CONTACT INPUT VERIFICATION--------------
+
+document.getElementById("send-btn").addEventListener("click", function (event) {
+  event.preventDefault(); // prevent page reload
+
+  // Get all inputs
+  const firstName = document.getElementById("first-name").value.trim();
+  const lastName = document.getElementById("last-name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const message = document.getElementById("message").value.trim();
+  const subject = document.querySelector('input[name="subject"]:checked');
+
+  // Email pattern
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Phone pattern
+  const phonePattern = /^[+]?[0-9]{6,15}$/;
+
+  // Start validation
+  if (
+    firstName === "" ||
+    lastName === "" ||
+    email === "" ||
+    phone === "" ||
+    message === ""
+  ) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (!emailPattern.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  if (!phonePattern.test(phone)) {
+    alert("Please enter a valid phone number (digits only).");
+    return;
+  }
+
+  if (!subject) {
+    alert("Please select a subject.");
+    return;
+  }
+
+  alert("✅ Message sent successfully!");
+  // Here you can later send the form data to a server
+});
