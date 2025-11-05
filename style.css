@@ -1511,10 +1511,6 @@
 .contact-top-right-part {
   width: 500px;
   margin-left: 50px;
-  position: relative;
-}
-
-.contact-top-right-part {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1522,55 +1518,33 @@
 
 .contact-top-right-part .top-inputs,
 .contact-top-right-part .middle-inputs {
-  /* display: flex;
-  align-items: center;
-  gap: 20px; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 20px);
+  gap: 20px;
 }
 
 .contact-top-right-part label {
   font-size: 14px;
-  margin-bottom: 25px;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .contact-top-right-part input {
-  width: 200px;
-  height: 30px;
+  width: 100%;
+  max-width: 200px;
+  height: 35px;
+  padding: 4px 0;
   border: none;
   outline: none;
   border-bottom: 1px solid #8d8d8d;
+  font-size: 14px;
+  box-sizing: border-box;
 }
-
-/* .contact-top-right-part .subject {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-} */
-
-/* .contact-top-right-part .subject .options label {
-  font-size: 12px;
-} */
-
-/* .contact-top-right-part .subject .options input {
-  width: 12px;
-} */
-
-/* .contact-top-right-part .subject .options span {
-  font-size: 10px;
-} */
-
-/* .contact-top-right-part .subject label:first-child {
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: 20px;
-} */
 
 .subject {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -1583,7 +1557,8 @@
 .subject .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 4px;
 }
 
 .radio-option {
@@ -1595,6 +1570,7 @@
   padding: 8px 14px;
   transition: all 0.3s ease;
   border: 1px solid transparent;
+  border-radius: 5px;
 }
 
 .radio-option:hover {
@@ -1608,9 +1584,9 @@
   height: 14px;
   border: 2px solid #444;
   border-radius: 50%;
-  position: relative;
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .radio-option input[type="radio"]:checked {
@@ -1634,13 +1610,16 @@
 .contact-top-right-part .message {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .contact-top-right-part .message textarea {
   border: none;
   border-bottom: 1px solid #819196;
-  /* padding-bottom: 20px; */
+  height: 80px;
+  resize: vertical;
+  padding: 6px 4px;
+  font-size: 14px;
 }
 
 .contact-top-right-part .message textarea:focus {
@@ -1650,6 +1629,27 @@
 .contact-top-right-part .message textarea::placeholder {
   font-size: 12px;
   color: black;
+}
+
+.error {
+  border-bottom: 2px solid red !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 11px;
+  margin-top: 4px;
+  font-weight: 400;
+  min-height: 14px;
+  display: block;
+}
+
+#subject-error {
+  display: block;
+  color: red;
+  font-size: 11px;
+  min-height: 14px;
+  margin-top: 4px;
 }
 
 #send-btn {
@@ -1662,8 +1662,9 @@
   font-weight: 500;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transform: all 0.3s ease;
-  margin-left: 320px;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: 10px;
 }
 
 #send-btn:hover {

@@ -90,20 +90,24 @@
             <div class="first-name">
               <label for="first-name">First Name</label>
               <input type="text" id="first-name" name="first-name" />
+              <small class="error-message"></small>
             </div>
             <div class="last-name">
               <label for="last-name">Last Name</label>
               <input type="text" id="last-name" name="last-name" />
+              <small class="error-message"></small>
             </div>
           </div>
           <div class="middle-inputs">
             <div class="email">
               <label for="email">Email</label>
               <input type="text" id="email" name="email" />
+              <small class="error-message"></small>
             </div>
             <div class="number">
               <label for="phone">Phone Number</label>
               <input type="text" id="phone" name="phone" />
+              <small class="error-message"></small>
             </div>
           </div>
           <div class="subject">
@@ -125,6 +129,7 @@
                 <input type="radio" name="subject" value="Other" />
                 <span>Other</span>
               </label>
+              <small class="error-message" id="subject-error"></small>
             </div>
           </div>
           <div class="message">
@@ -134,6 +139,7 @@
               id="message"
               placeholder="Write your message"
             ></textarea>
+            <small class="error-message"></small>
           </div>
           <button id="send-btn">Send Message</button>
         </div>
