@@ -88,46 +88,54 @@
         <div class="contact-top-right-part">
           <div class="top-inputs">
             <div class="first-name">
-              <label for="username">First Name</label>
-              <input type="text" />
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first-name" />
             </div>
             <div class="last-name">
-              <label for="username">Last Name</label>
-              <input type="text" />
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last-name" />
             </div>
           </div>
           <div class="middle-inputs">
             <div class="email">
-              <label for="username">Email</label>
-              <input type="text" />
+              <label for="email">Email</label>
+              <input type="text" id="email" name="email" />
             </div>
             <div class="number">
-              <label for="username">Phone Number</label>
-              <input type="text" />
+              <label for="phone">Phone Number</label>
+              <input type="text" id="phone" name="phone" />
             </div>
           </div>
           <div class="subject">
-            <label for="question">Select Subject?</label>
+            <label>Select Subject?</label>
             <div class="options">
-              <input type="radio" name="" id="" />
-              <span>General Inquiry</span>
-              <input type="radio" name="" id="" />
-              <span>General Inquiry</span>
-              <input type="radio" name="" id="" />
-              <span>General Inquiry</span>
-              <input type="radio" name="" id="" />
-              <span>General Inquiry</span>
+              <label class="radio-option">
+                <input type="radio" name="subject" value="General Inquiry" />
+                <span>General Inquiry</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="subject" value="Technical Support" />
+                <span>Technical Support</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="subject" value="Partnership" />
+                <span>Partnership</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="subject" value="Other" />
+                <span>Other</span>
+              </label>
             </div>
           </div>
           <div class="message">
             <label for="message"> Message </label>
             <textarea
               name="message"
-              id=""
+              id="message"
               placeholder="Write your message"
             ></textarea>
           </div>
-          <a href="#">Send Message</a>
+          <button id="send-btn">Send Message</button>
         </div>
       </div>
     </div>
@@ -192,5 +200,6 @@
       </div>
     </div>
     <!-- FOOTER -->
+    <script src="script.js"></script>
   </body>
 </html>
